@@ -15,13 +15,14 @@
 #     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 set(sysinfo_sources
-    "osinfo.c"
+    "osinfo/${os_dir}/osinfo.c"
 )
 
-set(sysinfo_headers
-    "osinfo.h"
-)
 
 add_library(sysinfo ${sysinfo_sources})
 target_compile_features(sysinfo PUBLIC c_std_11)
-target_include_directories(sysinfo INTERFACE "./")
+
+if(LINUX)
+    find_package(math REQUIRED)
+    target_link_libraries(sysinfo math)
+endif()

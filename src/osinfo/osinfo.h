@@ -17,8 +17,7 @@
 #ifndef SYSINFO_OSINFO_H
 #define SYSINFO_OSINFO_H
 
-#include "./errors.h"
-
+#include <errors.h>
 #include <stddef.h>
 
 // ====================
@@ -69,7 +68,7 @@ int sysinfo_get_os_version(char *buff, size_t count);
 // ================
 // Functions and data specific to each supported OS family.
 
-#if (defined __unix__) && (defined __linux__)
+#if defined __linux__
 // +++++++++++++++++++
 // Linux-Only Features
 // +++++++++++++++++++
@@ -114,7 +113,7 @@ typedef struct kernel_info {
  */
 sysinfo_kernel_info_t *sysinfo_get_kernel_info();
 
-#elif (defined __unix__) && (defined __darwin__) // macOS-specific features
+#elif (defined __APPLE__) && (defined __MACH__) // macOS-specific features
 
 // +++++++++++++++++++
 // macOS-Only Features
