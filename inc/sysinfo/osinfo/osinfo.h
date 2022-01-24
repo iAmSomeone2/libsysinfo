@@ -1,8 +1,6 @@
 #ifndef SYSINFO_OSINFO_H
 #define SYSINFO_OSINFO_H
 
-#include <string.h>
-
 /**
  * \brief Family to which an OS belongs
  * 
@@ -21,22 +19,5 @@ typedef enum os_family {
     /** Unsupported OS */
     UNKNOWN
 } sysinfo__os_family;
-
-/**
- * \brief Information about the running operating system
- * 
- */
-typedef struct osinfo {
-    /**
-     * \brief Family of current OS
-     * \see sysinfo__os_family
-     */
-    const sysinfo__os_family family;
-
-    /**
-     * \brief Name of current OS
-     */
-    // const sysinfo__str name;
-} sysinfo__osinfo_t;
 
 #endif // SYSINFO_OSINFO_H

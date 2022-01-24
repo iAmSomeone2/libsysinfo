@@ -15,6 +15,7 @@
 //     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "../osinfo.h"
+#include <sysinfo/errors.h>
 
 #include <string.h>
 #include <stdio.h>
@@ -32,16 +33,16 @@ static const char KERNEL_VERSION_PATH[] = "/proc/version";
  * \param buff  pointer to character array to write result to
  * \param count  number of bytes allocated to buff. 128 is the maximum supported value. Larger values will be ignored.
  * 
- * \return If >= 0, number of bytes written to buff. If \< 0, error code
+ * \return sysinfo__error_code on failure
  */
-int get_os_release_value(const char *key, char *buff, const size_t count)
+sysinfo__error_code get_os_release_value(const char *key, char *buff, const size_t count)
 {
     // Try to open file stream
     FILE *os_release_fd = fopen(OS_RELEASE_PATH, "r");
     if (os_release_fd == NULL)
     {
         perror("get_os_release_value");
-        return HUGO_ERROR_MISSING_FILE;
+        return MISSING_SYSTEM_FILE;
     }
 
     // Prepare line buffer
@@ -89,9 +90,9 @@ int get_os_release_value(const char *key, char *buff, const size_t count)
 
     if (key_found)
     {
-        return (int) (val_len);
+        return SUCCESS;
     }
-    return HUGO_ERROR_INFO_NOT_FOUND;
+    return RELEASE_KEY_NOT_FOUND;
 }
 
 /**
@@ -100,7 +101,7 @@ int get_os_release_value(const char *key, char *buff, const size_t count)
  * \param buff  pointer to character array to write result to
  * \param count  number of bytes allocated to buff
  *
- * \return If >=0, number of bytes written to buff. If <0, error code
+ * \return sysinfo__error_code on failure
  */
 int sysinfo_get_os_name(char *buff, const size_t count)
 {
@@ -114,7 +115,7 @@ int sysinfo_get_os_name(char *buff, const size_t count)
  * \param buff  pointer to character array to write result to
  * \param count  number of bytes allocated to buff
  * 
- * \return If >=0, number of bytes written to buff. If <0, error code 
+ * \return sysinfo__error_code on failure
  */
 int sysinfo_get_os_version(char *buff, const size_t count)
 {
