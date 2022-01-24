@@ -69,31 +69,6 @@ enum os_arch {
 // "AArch64";
 // #endif
 
-// ================
-// OS-Agnostic Data
-// ================
-// Functions and data which may be used on any OS.
-
-/**
- * Retrieve the name of the host OS.
- *
- * \param buff  pointer to character array to write result to
- * \param count  number of bytes allocated to buff
- *
- * \return number of bytes written to buff
- */
-int sysinfo_get_os_name(char *buff, size_t count);
-
-/**
- * Retrieve the version string of the host OS.
- *
- * \param buff  pointer to character array to write result to
- * \param count  number of bytes allocated to buff
- *
- * \return number of bytes written to buff
- */
-int sysinfo_get_os_version(char *buff, size_t count);
-
 // =================
 // OS Info Structure
 // =================
